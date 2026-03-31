@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
 //2. app init
-const port = process.env.PORT;
+const port = process.env.PORT;  
 const db = require("./db");
 
 // Import the router files

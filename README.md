@@ -100,7 +100,7 @@ cd CRUDMongoose
 npm install
 
 # Start the server
-npm run dev
+npm node server.js
 ```
 
 ---
@@ -111,45 +111,170 @@ Create a `.env` file in the root directory:
 
 ```id="r8x1m3"
 PORT=3000
-MONGO_URL=mongodb://localhost:27017/hotels
+MONGO_URL=your_mongodb_connection_string
+```
+
+---
+
+
+
+### 🔹 Base URL
+
+```
+http://localhost:3000
 ```
 
 ---
 
 ## 🌐 API Endpoints
 
-### 🔹 Base URL
+ 👤 Persons
+### ➤ Add a Person
 
-```id="k3n9q7"
-http://localhost:3000
+* **Endpoint:** `POST /person`
+* **Description:** Adds a new person (staff) to the system.
+
+---
+
+### ➤ Get All Persons
+
+* **Endpoint:** `GET /person`
+* **Description:** Retrieves all persons.
+
+---
+
+### ➤ Get Persons by Work Type
+
+* **Endpoint:** `GET /person/:workType`
+* **Description:** Retrieves persons based on work type (chef, waiter, manager).
+
+---
+
+### ➤ Update a Person
+
+* **Endpoint:** `PUT /person/:id`
+* **Description:** Updates a person by ID.
+
+---
+
+### ➤ Delete a Person
+
+* **Endpoint:** `DELETE /person/:id`
+* **Description:** Deletes a person by ID.
+
+---
+
+## 🍴 Menu Items
+
+### ➤ Add a Menu Item
+
+* **Endpoint:** `POST /menu`
+* **Description:** Adds a new menu item.
+
+---
+
+### ➤ Get All Menu Items
+
+* **Endpoint:** `GET /menu`
+* **Description:** Retrieves all menu items.
+
+---
+
+### ➤ Filter Menu Items (Query)
+
+* **Endpoint:** `GET /menu?ingredient=paneer`
+* **Endpoint:** `GET /menu?taste=spicy`
+* **Endpoint:** `GET /menu?ingredient=paneer&taste=spicy`
+* **Description:** Filters menu items using query parameters.
+
+---
+
+### ➤ Get Menu Items by Taste
+
+* **Endpoint:** `GET /menu/taste/:tasteType`
+* **Description:** Retrieves menu items based on taste.
+
+---
+
+### ➤ Get Menu Items by Ingredient
+
+* **Endpoint:** `GET /menu/ingredient/:ingredient`
+* **Description:** Retrieves menu items based on ingredient.
+
+---
+
+### ➤ Update a Menu Item
+
+* **Endpoint:** `PUT /menu/:id`
+* **Description:** Updates a menu item by ID.
+
+---
+
+### ➤ Delete a Menu Item
+
+* **Endpoint:** `DELETE /menu/:id`
+* **Description:** Deletes a menu item by ID.
+
+---
+
+## 📊 Data Models
+
+### 👤 Person
+
+Represents staff members in the restaurant.
+
+#### Fields:
+
+* `name` → String (required)
+* `age` → Number
+* `work` → Enum (`chef`, `waiter`, `manager`)
+* `mobile` → String (required)
+* `email` → String (required, unique)
+* `address` → String
+* `salary` → Number (required)
+
+#### Example:
+
+```json
+{
+  "name": "Rahul Sharma",
+  "age": 28,
+  "work": "chef",
+  "mobile": "9876543210",
+  "email": "rahul@example.com",
+  "address": "Mumbai",
+  "salary": 35000
+}
 ```
 
 ---
 
-### 👤 Person Routes
+### 🍽️ MenuItem
 
-```id="a7d3k2"
-GET     /person           → Get all persons  
-POST    /person           → Add new person  
-PUT     /person/:id       → Update person  
-DELETE  /person/:id       → Delete person  
+Represents food and drink items.
+
+#### Fields:
+
+* `name` → String (required)
+* `price` → Number (required)
+* `taste` → Enum (`sweet`, `spicy`, `sour`)
+* `is_drink` → Boolean (default: false)
+* `ingredients` → Array of Strings (default: [])
+* `num_sales` → Number (default: 0)
+
+#### Example:
+
+```json
+{
+  "name": "Paneer Butter Masala",
+  "price": 250,
+  "taste": "spicy",
+  "is_drink": false,
+  "ingredients": ["paneer", "butter", "tomato"],
+  "num_sales": 120
+}
 ```
 
----
-
-### 🍴 Menu Routes
-
-```id="v4h8p1"
-GET     /menu                         → Get all menu items  
-GET     /menu?ingredient=paneer       → Filter by ingredient  
-GET     /menu?taste=spicy             → Filter by taste  
-GET     /menu?ingredient=paneer&taste=spicy → Combined filter  
-
-GET     /menu/taste/:tasteType        → Taste-based filtering  
-GET     /menu/ingredient/:ingredient  → Ingredient-based filtering  
-
-POST    /menu                         → Add new menu item  
-```
 
 ---
 
